@@ -1,10 +1,20 @@
-import { Text, View } from "react-native";
-const App = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Hello, World!</Text>
-    </View>
-  );
+// App.js
+import { AuthProvider, useAuth } from "./src/context/AuthContext";
+import { ThemeProvider } from "./src/context/ThemeContext";
+import HomeScreen from "./src/screens/HomeScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+
+const Main = () => {
+  const { user } = useAuth();
+  return user ? <HomeScreen /> : <LoginScreen />;
 };
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <ThemeProvider>
+        <Main />
+      </ThemeProvider>
+    </AuthProvider>
+  );
+}
